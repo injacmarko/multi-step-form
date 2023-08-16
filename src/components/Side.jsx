@@ -12,7 +12,7 @@ function Side(props) {
                         <Step number='4' text='SUMMARY' isSelected={props.selected == 4} />
                     </div>
                 </div>
-                <img id='side-img' src='../src/assets/bg-sidebar-desktop.svg' alt="sidebar" />
+                <img id='side-img' src='/src/assets/bg-sidebar-desktop.svg' alt="sidebar" />
             </div>
         </>
     )

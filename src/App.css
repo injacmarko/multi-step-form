@@ -56,13 +56,12 @@ input:focus {
 #submit-btn:hover {
   cursor: pointer;
   background-color: #0f5ebe;
-  filter: drop-shadow(0px 0px 5px #1375ec);
 }
 
 #submit-btn-container {
   display: flex;
   width: 100%;
-  justify-content: end;
+  justify-content: space-between;
 }
 
 #side-img {
@@ -75,6 +74,25 @@ input:focus {
 #side-txt {
   position: absolute;
   padding: 40px 30px;
+}
+
+#back-btn {
+  border: 0;
+  background-color: transparent;
+  font-weight: 500;
+  color: rgb(133, 133, 133);
+  transition: color 0.3s;
+}
+
+#back-btn:hover {
+  color: #022959;
+  cursor: pointer;
+}
+
+#plan-container {
+  display: flex;
+  flex-direction: column;
+  height: 60%;
 }
 
 .step-txt {
@@ -173,4 +191,112 @@ input:focus {
 .input-labels {
   display: flex;
   justify-content: space-between;
+}
+
+#switch-container {
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+#switch-container p {
+  font-size: 13px;
+  font-weight: 700;
+  color: rgb(133, 133, 133);
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 35px;
+  height: 18px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+#slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #022959;
+  transition: 0.3s;
+  border-radius: 34px;
+}
+
+#slider::before {
+  position: absolute;
+  content: "";
+  height: 10px;
+  width: 10px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  transition: 0.3s;
+  border-radius: 50%;
+}
+
+.switch input:checked + #slider:before {
+  transform: translateX(17px);
+}
+
+.plan-btn-label input{
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.plan-btn {
+  position: relative;
+  display: inline-block;
+  top: 0;
+  height: 140px;
+  width: 30%;
+  margin-right: 10px;
+  border: 1px solid rgb(133, 133, 133);
+  border-radius: 7px;
+  cursor: pointer;
+  transition: border 0.3s, background-color 0.3s;
+}
+
+.plan-btn:hover {
+  border: 1px solid #022959;
+}
+
+.plan-btn-label input:checked + .plan-btn {
+  background-color: #f9f8fe;
+  border: 1px solid #022959;
+}
+
+.plan-btn img {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+}
+
+.plan-btn span {
+  position: absolute;
+  bottom: 15px;
+  left: 15px;
+}
+
+.plan-btn span p:first-child {
+  font-size: 15px;
+  color: #022959;
+  font-weight: 700;
+}
+
+.plan-btn span p:last-child {
+  font-size: 13px;
+  color: rgb(133, 133, 133);
 }
