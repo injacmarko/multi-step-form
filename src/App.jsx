@@ -124,7 +124,11 @@ function App() {
                     <img src="/src/assets/icon-arcade.svg" alt="arcade" />
                     <span>
                       <p>Arcade</p>
+                      {plan ?
+                      <p>$90/yr</p>
+                      :
                       <p>$9/mo</p>
+                      }
                     </span>
                   </span>
                 </label>
@@ -134,7 +138,11 @@ function App() {
                     <img src="/src/assets/icon-advanced.svg" alt="advanced" />
                     <span>
                       <p>Advanced</p>
+                      {plan ?
+                      <p>$120/yr</p>
+                      :
                       <p>$12/mo</p>
+                      }
                     </span>
                   </span>
                 </label>
@@ -144,7 +152,11 @@ function App() {
                     <img src="/src/assets/icon-pro.svg" alt="pro" />
                     <span>
                       <p>Pro</p>
-                      <p>15$/mo</p>
+                      {plan ?
+                      <p>$150/yr</p>
+                      :
+                      <p>$15/mo</p>
+                      }
                     </span>
                   </span>
                 </label>
