@@ -4,7 +4,7 @@ function Step(props) {
         color: x ? '#493fff' : ''
     })
     const divStyle = (x) => ({
-        backgroundColor: x ? '#bfe1fc' : ''
+        backgroundColor: x ? '#ffff' : ''
     })
 
     return(

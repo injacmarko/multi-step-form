@@ -95,11 +95,17 @@ input:focus {
   height: 60%;
 }
 
+#addons {
+  display: flex;
+  flex-direction: column;
+  height: 60%;
+}
+
 .step-txt {
   margin-left: 10px;
   display: flex;
   flex-direction: column;
-  color: #bfe1fc;
+  color: #ffffff;
 }
 
 .step-txt > .p1 {
@@ -124,8 +130,8 @@ input:focus {
 
 .number-circle {
   border-radius: 100%;
-  border: 1px solid #bfe1fc;
-  color: #bfe1fc;
+  border: 1px solid #ffffff;
+  color: #ffffff;
   font-weight: 500;
   width: 30px;
   height: 30px;
@@ -176,10 +182,10 @@ input:focus {
 .content {
   width: 70%;
   height: auto;
-  padding: 10px 70px;
+  padding: 25px 70px;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: space-between;
 }
 
 .label-error {
@@ -299,4 +305,86 @@ input:focus {
 .plan-btn span p:last-child {
   font-size: 13px;
   color: rgb(133, 133, 133);
+}
+
+.addon {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 65px;
+  padding: 20px;
+  border: 1px solid rgb(133, 133, 133);
+  border-radius: 7px;
+  cursor: pointer;
+  transform: translateY(-10px);
+  transition: border 0.3s, background-color 0.3s;
+  margin-bottom: 15px;
+}
+
+.addon:hover {
+  border: 1px solid #022959;
+}
+
+.addon-half {
+  display: flex;
+  align-items: center;
+}
+
+.addon-txt {
+  margin-left: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.addon-txt p:first-child {
+  color: #022959;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.addon-txt p:last-child {
+  color: rgb(133, 133, 133);
+  font-size: 12px;
+}
+
+.addon:last-child {
+  color: #0a4286;
+  font-size: 14px;
+}
+
+.addon-half input {
+  display: grid;
+  place-content: center;
+  position: relative;
+  appearance: none;
+  background-color: #ffffff;
+  margin: 0;
+  transform: scale(0.8);
+  width: 20px;
+  height: 20px;
+  border: 1px solid rgb(133, 133, 133);
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.addon-half input::before {
+  position: absolute;
+  content: '';
+  opacity: 0;
+  height: 20px;
+  width: 20px;
+  transform: scale(1.5);
+  background-image: url(assets/Ooui-checkbox-selected.svg);
+  transition: opacity 0.1s;
+}
+
+.addon-half input:focus {
+  border: 1px solid rgb(133, 133, 133) !important;
+}
+
+.addon-half input:checked::before {
+  opacity: 1;
 }

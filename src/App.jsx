@@ -4,7 +4,7 @@ import Side from './components/Side'
 
 function App() {
 
-  const [selected, setSelected] = useState(2)
+  const [selected, setSelected] = useState(3)
   const [name, setName] = useState()
   const [email, setEmail] = useState()
   const [number, setNumber] = useState()
@@ -12,6 +12,9 @@ function App() {
   const [invalidEmail, setInvalidEmail] = useState(false)
   const [invalidNumber, setInvalidNumber] = useState(false)
   const [plan, setPlan] = useState(false)
+  const [addon1, setAddon1] = useState(false)
+  const [addon2, setAddon2] = useState(false)
+  const [addon3, setAddon3] = useState(false)
 
   function nextStep() {
     name=='' || name==null ? setInvalidName(true) : setInvalidName(false)
@@ -26,6 +29,19 @@ function App() {
       setSelected(selected+1)
     }
   }
+
+  const addon1Style = (x) => ({
+    border: x ? '1px solid #022959' : '',
+    backgroundColor: x ? '#f9f8fe' : ''
+  })
+  const addon2Style = (x) => ({
+    border: x ? '1px solid #022959' : '',
+    backgroundColor: x ? '#f9f8fe' : ''
+  })
+  const addon3Style = (x) => ({
+    border: x ? '1px solid #022959' : '',
+    backgroundColor: x ? '#f9f8fe' : ''
+  })
 
   const monthlyStyle = (plan) => ({
     color: plan ? '' : '#022959',
@@ -124,11 +140,7 @@ function App() {
                     <img src="/src/assets/icon-arcade.svg" alt="arcade" />
                     <span>
                       <p>Arcade</p>
-                      {plan ?
-                      <p>$90/yr</p>
-                      :
-                      <p>$9/mo</p>
-                      }
+                      {plan ? <p>$90/yr</p> : <p>$9/mo</p>}
                     </span>
                   </span>
                 </label>
@@ -138,11 +150,7 @@ function App() {
                     <img src="/src/assets/icon-advanced.svg" alt="advanced" />
                     <span>
                       <p>Advanced</p>
-                      {plan ?
-                      <p>$120/yr</p>
-                      :
-                      <p>$12/mo</p>
-                      }
+                      {plan ? <p>$120/yr</p> : <p>$12/mo</p>}
                     </span>
                   </span>
                 </label>
@@ -152,11 +160,7 @@ function App() {
                     <img src="/src/assets/icon-pro.svg" alt="pro" />
                     <span>
                       <p>Pro</p>
-                      {plan ?
-                      <p>$150/yr</p>
-                      :
-                      <p>$15/mo</p>
-                      }
+                      {plan ? <p>$150/yr</p> : <p>$15/mo</p>}
                     </span>
                   </span>
                 </label>
@@ -172,6 +176,44 @@ function App() {
             </div>
             : selected==3 ?
             <>
+              <div id='addons'>
+                <label className='addon-label'>
+                  <span className='addon' style={addon1Style(addon1)}>
+                    <span className='addon-half'>
+                      <input type="checkbox" name="addons" onClick={() => setAddon1(!addon1)}/>
+                      <span className='addon-txt'>
+                        <p>Online service</p>
+                        <p>Access to multiplayer games</p>
+                      </span>
+                    </span>
+                    {plan ? <p>+$10/yr</p> : <p>+$1/mo</p>}
+                  </span>
+                </label>
+                <label className='addon-label'>
+                  <span className='addon' style={addon2Style(addon2)}>
+                    <span className='addon-half'>
+                      <input type="checkbox" name="addons" onClick={() => setAddon2(!addon2)}/>
+                      <span className='addon-txt'>
+                        <p>Larger storage</p>
+                        <p>Extra 1TB of cloud save</p>
+                      </span>
+                    </span>
+                    {plan ? <p>+$20/yr</p> : <p>+$2/mo</p>}
+                  </span>
+                </label>
+                <label className='addon-label'>
+                  <span className='addon' style={addon3Style(addon3)}>
+                    <span className='addon-half'>
+                      <input type="checkbox" name="addons" onClick={() => setAddon3(!addon3)}/>
+                      <span className='addon-txt'>
+                        <p>Customizable profile</p>
+                        <p>Custom theme on your profile</p>
+                      </span>
+                    </span>
+                    {plan ? <p>+$20/yr</p> : <p>+$2/mo</p>}
+                  </span>
+                </label>
+              </div>
             </>
             :
             <>
