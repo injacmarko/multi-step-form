@@ -4,7 +4,7 @@ import Side from './components/Side'
 
 function App() {
 
-  const [selected, setSelected] = useState(2)
+  const [selected, setSelected] = useState(1)
   const [name, setName] = useState()
   const [email, setEmail] = useState()
   const [number, setNumber] = useState()
