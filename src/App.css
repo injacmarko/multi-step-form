@@ -50,12 +50,28 @@ input:focus {
   border-radius: 5px;
   width: 100px;
   height: 40px;
-  transition: background-color 0.3s, filter 0.3s;
+  transition: background-color 0.3s;
 }
 
 #submit-btn:hover {
   cursor: pointer;
-  background-color: #0f5ebe;
+  background-color: #164a8a;
+}
+
+#confirm-btn {
+  background-color: #483eff;
+  color: white;
+  font-weight: 500;
+  border: 0px;
+  border-radius: 5px;
+  width: 100px;
+  height: 40px;
+  transition: background-color 0.3s;
+}
+
+#confirm-btn:hover {
+  background-color: #928df6;
+  cursor: pointer;
 }
 
 #submit-btn-container {

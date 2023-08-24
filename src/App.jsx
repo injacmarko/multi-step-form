@@ -1,10 +1,10 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import './App.css'
 import Side from './components/Side'
 
 function App() {
 
-  const [selected, setSelected] = useState(3)
+  const [selected, setSelected] = useState(4)
   const [name, setName] = useState()
   const [email, setEmail] = useState()
   const [number, setNumber] = useState()
@@ -15,19 +15,39 @@ function App() {
   const [addon1, setAddon1] = useState(false)
   const [addon2, setAddon2] = useState(false)
   const [addon3, setAddon3] = useState(false)
+  const [subscription, setSubscription] = useState('Advanced')
+  const [planSum, setPlanSum] = useState(0)
+  const [addon1Sum, setAddon1Sum] = useState(0)
+  const [addon2Sum, setAddon2Sum] = useState(0)
+  const [addon3Sum, setAddon3Sum] = useState(0)
+
+  useEffect(() => {
+    plan ? subscription=='Arcade' ? setPlanSum(90) : subscription=='Advanced' ? setPlanSum(120) : setPlanSum(150) : subscription=='Arcade' ? setPlanSum(9) : subscription=='Advanced' ? setPlanSum(12) : setPlanSum(15)
+  }, [subscription])
+  useEffect(() => {
+    plan ? addon1 ? setAddon1Sum(10) : setAddon1Sum(0) : addon1 ? setAddon1Sum(1) : setAddon1Sum(0)
+  }, [addon1])
+  useEffect(() => {
+    plan ? addon2 ? setAddon2Sum(20) : setAddon2Sum(0) : addon2 ? setAddon2Sum(2) : setAddon2Sum(0)
+  }, [addon2])
+  useEffect(() => {
+    plan ? addon3 ? setAddon3Sum(20) : setAddon3Sum(0) : addon3 ? setAddon3Sum(2) : setAddon3Sum(0)
+  }, [addon3])
 
   function nextStep() {
-    name=='' || name==null ? setInvalidName(true) : setInvalidName(false)
-    const emailRegEx = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/
-    !emailRegEx.test(email) ? setInvalidEmail(true) : setInvalidEmail(false)
-    const numberRegEx = /\+\d+/
-    !numberRegEx.test(number) ? setInvalidNumber(true) : setInvalidNumber(false)
-
-    document.activeElement.blur()
-
-    if (number != null && number !='' && emailRegEx.test(email) && numberRegEx.test(number)) {
-      setSelected(selected+1)
+    if (selected==1) {
+      name=='' || name==null ? setInvalidName(true) : setInvalidName(false)
+      const emailRegEx = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/
+      !emailRegEx.test(email) ? setInvalidEmail(true) : setInvalidEmail(false)
+      const numberRegEx = /\+\d+/
+      !numberRegEx.test(number) ? setInvalidNumber(true) : setInvalidNumber(false)
+  
+      document.activeElement.blur()
+      if (number != null && number !='' && emailRegEx.test(email) && numberRegEx.test(number)) {
+        setSelected(selected+1)
+      }
     }
+    setSelected(selected+1)
   }
 
   const addon1Style = (x) => ({
@@ -135,7 +155,7 @@ function App() {
             <div id='plan-container'>
               <div id='buttons'>
                 <label className='plan-btn-label'>
-                  <input type="radio" name='plan'/>
+                  <input type="radio" name='plan' onClick={() => setSubscription('Arcade')}/>
                   <span className='plan-btn'>
                     <img src="/src/assets/icon-arcade.svg" alt="arcade" />
                     <span>
@@ -145,7 +165,7 @@ function App() {
                   </span>
                 </label>
                 <label className='plan-btn-label'>
-                  <input type="radio" name='plan'/>
+                  <input type="radio" name='plan'  onClick={() => setSubscription('Advanced')}/>
                   <span className='plan-btn'>
                     <img src="/src/assets/icon-advanced.svg" alt="advanced" />
                     <span>
@@ -155,7 +175,7 @@ function App() {
                   </span>
                 </label>
                 <label className='plan-btn-label'>
-                  <input type="radio" name='plan'/>
+                  <input type="radio" name='plan' onClick={() => setSubscription('Pro')}/>
                   <span className='plan-btn'>
                     <img src="/src/assets/icon-pro.svg" alt="pro" />
                     <span>
@@ -217,10 +237,38 @@ function App() {
             </>
             :
             <>
+              <div id='summary'>
+                  <div id='subscription'>
+                    <div id='upper'>
+                      {plan ? <p>{subscription} (Yearly)</p> : <p>{subscription} (Monthly)</p>}
+                      {plan ?
+                      subscription=='Arcade' ? <p>$90/yr</p> : subscription=='Advanced' ? <p>$120/yr</p> : <p>$150/yr</p>
+                      :
+                      subscription=='Arcade' ? <p>$9/mo</p> : subscription=='Advanced' ? <p>$12/mo</p> : <p>$15/mo</p>}
+                    </div>
+                    <div id='line'></div>
+                    <div id='addon1'>
+                      {addon1 ? <p>Online service</p> : <></>}
+                      {addon1 ? plan ? <p>+$10/yr</p> : <p>+$1/mo</p> : <></>}
+                    </div>
+                    <div id='addon2'>
+                      {addon2 ? <p>Larger storage</p> : <></>}
+                      {addon2 ? plan ? <p>+$20/yr</p> : <p>+$2/mo</p> : <></>}
+                    </div>
+                    <div id='addon3'>
+                      {addon3 ? <p>Customizable profile</p> : <></>}
+                      {addon3 ? plan ? <p>+$20/yr</p> : <p>+$2/mo</p> : <></>}
+                    </div>
+                  </div>
+                  <div id='total'>
+                    <p>Total</p>
+                    {plan ? <p>${planSum + addon1Sum + addon2Sum + addon3Sum}/yr</p> : <p>${planSum + addon1Sum + addon2Sum + addon3Sum}/mo</p>}
+                  </div>
+              </div>
             </>}
             <div id='submit-btn-container'>
               <button id='back-btn' onClick={() => {setSelected(selected-1)}} style={backStyle(selected)}>Go Back</button>
-              <button id='submit-btn' onClick={() => nextStep()}>Next Step</button>
+              {selected!=4 ? <button id='submit-btn' onClick={() => nextStep()}>Next Step</button> : <button id='confirm-btn'>Confirm</button>}
             </div>
           </div>
         </div>
