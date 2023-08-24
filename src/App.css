@@ -117,6 +117,78 @@ input:focus {
   height: 60%;
 }
 
+#subscription {
+  border-radius: 10px;
+  background-color: #f9f9ff;
+  padding: 20px;
+}
+
+#line {
+  height: 1px;
+  background-color: #eaeaea;
+  margin-top: 10px;
+}
+
+#summary {
+  transform: translateY(-40px);
+}
+
+.addon-sum {
+  margin-top: 20px;
+  color: rgb(133, 133, 133);
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+}
+
+.addon-sum p:last-child {
+  color: #022959;
+  font-weight: 500;
+}
+
+#total {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  color: rgb(133, 133, 133);
+  font-size: 14px;
+}
+
+#total p:last-child {
+  color: #483eff;
+  font-weight: 700;
+  font-size: 16px;
+}
+
+#upper {
+  color: #022959;
+  font-weight: 700;
+  display: flex;
+  justify-content: space-between;
+}
+
+#thanks {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  height: 50%;
+  transform: translateY(-120px);
+}
+
+#thanks p {
+  font-size: 25px;
+  font-weight: 700;
+  color: #022959;
+}
+
+#thanks p:last-child {
+  font-size: 13px;
+  font-weight: 400;
+  color: rgb(133, 133, 133);
+  line-height: 20px;
+}
+
 .step-txt {
   margin-left: 10px;
   display: flex;
@@ -292,11 +364,6 @@ input:focus {
 }
 
 .plan-btn:hover {
-  border: 1px solid #022959;
-}
-
-.plan-btn-label input:checked + .plan-btn {
-  background-color: #f9f8fe;
   border: 1px solid #022959;
 }
 

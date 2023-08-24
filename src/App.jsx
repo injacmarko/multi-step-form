@@ -4,7 +4,7 @@ import Side from './components/Side'
 
 function App() {
 
-  const [selected, setSelected] = useState(4)
+  const [selected, setSelected] = useState(2)
   const [name, setName] = useState()
   const [email, setEmail] = useState()
   const [number, setNumber] = useState()
@@ -15,7 +15,7 @@ function App() {
   const [addon1, setAddon1] = useState(false)
   const [addon2, setAddon2] = useState(false)
   const [addon3, setAddon3] = useState(false)
-  const [subscription, setSubscription] = useState('Advanced')
+  const [subscription, setSubscription] = useState('')
   const [planSum, setPlanSum] = useState(0)
   const [addon1Sum, setAddon1Sum] = useState(0)
   const [addon2Sum, setAddon2Sum] = useState(0)
@@ -50,15 +50,16 @@ function App() {
     setSelected(selected+1)
   }
 
-  const addon1Style = (x) => ({
-    border: x ? '1px solid #022959' : '',
-    backgroundColor: x ? '#f9f8fe' : ''
+  const addonSumStyle = (a) => ({
+    marginTop: a ? '' : '0px'
   })
-  const addon2Style = (x) => ({
-    border: x ? '1px solid #022959' : '',
-    backgroundColor: x ? '#f9f8fe' : ''
+
+  const subscriptionStyle = (a) => ({
+    backgroundColor: a ? '#f9f8fe' : '',
+    border: a ? '1px solid #022959': ''
   })
-  const addon3Style = (x) => ({
+
+  const addonStyle = (x) => ({
     border: x ? '1px solid #022959' : '',
     backgroundColor: x ? '#f9f8fe' : ''
   })
@@ -109,12 +110,12 @@ function App() {
                 <p id='title'>Pick add-ons</p>
                 <p id='subtitle'>Add-ons help enhance your gaming experience.</p>
               </>
-              :
+              : selected==4 ?
               <>
                 <p id='title'>Finishing up</p>
                 <p id='subtitle'>Double-check everything looks OK before confirming.</p>
               </>
-              }
+              : <></>}
             </div>
             {selected==1 ?
             <>
@@ -156,7 +157,7 @@ function App() {
               <div id='buttons'>
                 <label className='plan-btn-label'>
                   <input type="radio" name='plan' onClick={() => setSubscription('Arcade')}/>
-                  <span className='plan-btn'>
+                  <span style={subscriptionStyle(subscription=='Arcade')} className='plan-btn'>
                     <img src="/src/assets/icon-arcade.svg" alt="arcade" />
                     <span>
                       <p>Arcade</p>
@@ -166,7 +167,7 @@ function App() {
                 </label>
                 <label className='plan-btn-label'>
                   <input type="radio" name='plan'  onClick={() => setSubscription('Advanced')}/>
-                  <span className='plan-btn'>
+                  <span style={subscriptionStyle(subscription=='Advanced')} className='plan-btn'>
                     <img src="/src/assets/icon-advanced.svg" alt="advanced" />
                     <span>
                       <p>Advanced</p>
@@ -176,7 +177,7 @@ function App() {
                 </label>
                 <label className='plan-btn-label'>
                   <input type="radio" name='plan' onClick={() => setSubscription('Pro')}/>
-                  <span className='plan-btn'>
+                  <span style={subscriptionStyle(subscription=='Pro')} className='plan-btn'>
                     <img src="/src/assets/icon-pro.svg" alt="pro" />
                     <span>
                       <p>Pro</p>
@@ -188,7 +189,7 @@ function App() {
               <div id='switch-container'>
                 <p style={monthlyStyle(plan)}>Monthly</p>
                 <label className='switch'>
-                  <input type="checkbox" onClick={() => setPlan(!plan)}/>
+                  <input checked={plan} type="checkbox" onClick={() => setPlan(!plan)}/>
                   <span id='slider'></span>
                 </label>
                 <p style={yearlyStyle(plan)}>Yearly</p>
@@ -198,9 +199,9 @@ function App() {
             <>
               <div id='addons'>
                 <label className='addon-label'>
-                  <span className='addon' style={addon1Style(addon1)}>
+                  <span className='addon' style={addonStyle(addon1)}>
                     <span className='addon-half'>
-                      <input type="checkbox" name="addons" onClick={() => setAddon1(!addon1)}/>
+                      <input checked={addon1} type="checkbox" name="addons" onClick={() => setAddon1(!addon1)}/>
                       <span className='addon-txt'>
                         <p>Online service</p>
                         <p>Access to multiplayer games</p>
@@ -210,9 +211,9 @@ function App() {
                   </span>
                 </label>
                 <label className='addon-label'>
-                  <span className='addon' style={addon2Style(addon2)}>
+                  <span className='addon' style={addonStyle(addon2)}>
                     <span className='addon-half'>
-                      <input type="checkbox" name="addons" onClick={() => setAddon2(!addon2)}/>
+                      <input checked={addon2} type="checkbox" name="addons" onClick={() => setAddon2(!addon2)}/>
                       <span className='addon-txt'>
                         <p>Larger storage</p>
                         <p>Extra 1TB of cloud save</p>
@@ -222,9 +223,9 @@ function App() {
                   </span>
                 </label>
                 <label className='addon-label'>
-                  <span className='addon' style={addon3Style(addon3)}>
+                  <span className='addon' style={addonStyle(addon3)}>
                     <span className='addon-half'>
-                      <input type="checkbox" name="addons" onClick={() => setAddon3(!addon3)}/>
+                      <input checked={addon3} type="checkbox" name="addons" onClick={() => setAddon3(!addon3)}/>
                       <span className='addon-txt'>
                         <p>Customizable profile</p>
                         <p>Custom theme on your profile</p>
@@ -235,7 +236,7 @@ function App() {
                 </label>
               </div>
             </>
-            :
+            : selected==4 ?
             <>
               <div id='summary'>
                   <div id='subscription'>
@@ -247,15 +248,15 @@ function App() {
                       subscription=='Arcade' ? <p>$9/mo</p> : subscription=='Advanced' ? <p>$12/mo</p> : <p>$15/mo</p>}
                     </div>
                     <div id='line'></div>
-                    <div id='addon1'>
+                    <div style={addonSumStyle(addon1)} className='addon-sum'>
                       {addon1 ? <p>Online service</p> : <></>}
                       {addon1 ? plan ? <p>+$10/yr</p> : <p>+$1/mo</p> : <></>}
                     </div>
-                    <div id='addon2'>
+                    <div style={addonSumStyle(addon2)} className='addon-sum'>
                       {addon2 ? <p>Larger storage</p> : <></>}
                       {addon2 ? plan ? <p>+$20/yr</p> : <p>+$2/mo</p> : <></>}
                     </div>
-                    <div id='addon3'>
+                    <div style={addonSumStyle(addon3)} className='addon-sum'>
                       {addon3 ? <p>Customizable profile</p> : <></>}
                       {addon3 ? plan ? <p>+$20/yr</p> : <p>+$2/mo</p> : <></>}
                     </div>
@@ -265,11 +266,20 @@ function App() {
                     {plan ? <p>${planSum + addon1Sum + addon2Sum + addon3Sum}/yr</p> : <p>${planSum + addon1Sum + addon2Sum + addon3Sum}/mo</p>}
                   </div>
               </div>
+            </>
+            :
+            <>
+              <div id='thanks'>
+                <img src="/src/assets/icon-thank-you.svg" alt="check" />
+                <p>Thank you!</p>
+                <p align='center'>Thanks for confirming your subscription! We hope you have fun using our platform. If you ever need support, please feel free to email us at support@petergaming.com.</p>
+              </div>
             </>}
+            {selected!=5 ?
             <div id='submit-btn-container'>
               <button id='back-btn' onClick={() => {setSelected(selected-1)}} style={backStyle(selected)}>Go Back</button>
-              {selected!=4 ? <button id='submit-btn' onClick={() => nextStep()}>Next Step</button> : <button id='confirm-btn'>Confirm</button>}
-            </div>
+              {selected!=4 ? <button id='submit-btn' onClick={() => nextStep()}>Next Step</button> : <button onClick={() => setSelected(selected+1)} id='confirm-btn'>Confirm</button>}
+            </div> : <></>}
           </div>
         </div>
       </div>
