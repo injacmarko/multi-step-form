@@ -20,6 +20,7 @@ function App() {
   const [addon1Sum, setAddon1Sum] = useState(0)
   const [addon2Sum, setAddon2Sum] = useState(0)
   const [addon3Sum, setAddon3Sum] = useState(0)
+  const [planError, setPlanError] = useState(false)
 
   useEffect(() => {
     plan ? subscription=='Arcade' ? setPlanSum(90) : subscription=='Advanced' ? setPlanSum(120) : setPlanSum(150) : subscription=='Arcade' ? setPlanSum(9) : subscription=='Advanced' ? setPlanSum(12) : setPlanSum(15)
@@ -33,6 +34,12 @@ function App() {
   useEffect(() => {
     plan ? addon3 ? setAddon3Sum(20) : setAddon3Sum(0) : addon3 ? setAddon3Sum(2) : setAddon3Sum(0)
   }, [addon3])
+  useEffect(() => {
+    plan ? subscription=='Arcade' ? setPlanSum(90) : subscription=='Advanced' ? setPlanSum(120) : setPlanSum(150) : subscription=='Arcade' ? setPlanSum(9) : subscription=='Advanced' ? setPlanSum(12) : setPlanSum(15)
+    plan ? addon1 ? setAddon1Sum(10) : setAddon1Sum(0) : addon1 ? setAddon1Sum(1) : setAddon1Sum(0)
+    plan ? addon2 ? setAddon2Sum(20) : setAddon2Sum(0) : addon2 ? setAddon2Sum(2) : setAddon2Sum(0)
+    plan ? addon3 ? setAddon3Sum(20) : setAddon3Sum(0) : addon3 ? setAddon3Sum(2) : setAddon3Sum(0)
+  }, [plan])
 
   function nextStep() {
     if (selected==1) {
@@ -47,8 +54,21 @@ function App() {
         setSelected(selected+1)
       }
     }
-    setSelected(selected+1)
+    else if (selected==2) {
+      subscription!='' ? setSelected(selected+1) : setPlanError(true)
+    }
+    else {
+      setSelected(selected+1)
+    }
   }
+
+  const planErrorStyle = (a) => ({
+    color: 'red',
+    marginBottom: '5px',
+    alignSelf: 'end',
+    marginRight: '20px',
+    opacity: a ? '1' : '0'
+  })
 
   const addonSumStyle = (a) => ({
     marginTop: a ? '' : '0px'
@@ -125,7 +145,7 @@ function App() {
                   <p className='label'>Name</p>
                   {invalidName ? <p className='label-error'>This field is required</p> : <></>}
                 </span>
-                <input type="text" style={nameInputStyle(invalidName)} spellCheck='false' onChange={e => setName(e.target.value)} placeholder='e.g. Peter Parker' autoFocus onKeyDown={e => {
+                <input type="text" value={name} style={nameInputStyle(invalidName)} spellCheck='false' onChange={e => setName(e.target.value)} placeholder='e.g. Peter Parker' autoFocus onKeyDown={e => {
                   if (e.key == 'Enter') {
                     nextStep()
                   }}}/>
@@ -135,7 +155,7 @@ function App() {
                   <p className='label'>Email Address</p>
                   {invalidEmail ? <p className='label-error'>This field is required</p> : <></>}
                 </span>
-                <input type="email" style={emailInputStyle(invalidEmail)} spellCheck='false' placeholder='e.g. spiderman@gmail.com' onChange={e => setEmail(e.target.value)} onKeyDown={e => {
+                <input type="email" value={email} style={emailInputStyle(invalidEmail)} spellCheck='false' placeholder='e.g. spiderman@gmail.com' onChange={e => setEmail(e.target.value)} onKeyDown={e => {
                   if (e.key == 'Enter') {
                     nextStep()
                   }}}/>
@@ -145,7 +165,7 @@ function App() {
                   <p className='label'>Phone Number</p>
                   {invalidNumber ? <p className='label-error'>This field is required</p> : <></>}
                 </span>
-                <input type="tel" style={numberInputStyle(invalidNumber)} spellCheck='false' placeholder='e.g. +1 234 567 890' onChange={e => setNumber(e.target.value)} onKeyDown={e => {
+                <input type="tel" value={number} style={numberInputStyle(invalidNumber)} spellCheck='false' placeholder='e.g. +1 234 567 890' onChange={e => setNumber(e.target.value)} onKeyDown={e => {
                   if (e.key == 'Enter') {
                     nextStep()
                   }}}/>
@@ -154,9 +174,10 @@ function App() {
             </>
             : selected==2 ?
             <div id='plan-container'>
+              <p style={planErrorStyle(planError)}>Select a plan</p>
               <div id='buttons'>
                 <label className='plan-btn-label'>
-                  <input type="radio" name='plan' onClick={() => setSubscription('Arcade')}/>
+                  <input type="radio" name='plan' onClick={() => {setSubscription('Arcade'); setPlanError(false)}}/>
                   <span style={subscriptionStyle(subscription=='Arcade')} className='plan-btn'>
                     <img src="/src/assets/icon-arcade.svg" alt="arcade" />
                     <span>
@@ -166,7 +187,7 @@ function App() {
                   </span>
                 </label>
                 <label className='plan-btn-label'>
-                  <input type="radio" name='plan'  onClick={() => setSubscription('Advanced')}/>
+                  <input type="radio" name='plan'  onClick={() => {setSubscription('Advanced'); setPlanError(false)}}/>
                   <span style={subscriptionStyle(subscription=='Advanced')} className='plan-btn'>
                     <img src="/src/assets/icon-advanced.svg" alt="advanced" />
                     <span>
@@ -176,7 +197,7 @@ function App() {
                   </span>
                 </label>
                 <label className='plan-btn-label'>
-                  <input type="radio" name='plan' onClick={() => setSubscription('Pro')}/>
+                  <input type="radio" name='plan' onClick={() => {setSubscription('Pro'); setPlanError(false)}}/>
                   <span style={subscriptionStyle(subscription=='Pro')} className='plan-btn'>
                     <img src="/src/assets/icon-pro.svg" alt="pro" />
                     <span>

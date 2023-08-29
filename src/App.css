@@ -109,6 +109,7 @@ input:focus {
   display: flex;
   flex-direction: column;
   height: 60%;
+  transform: translateY(-10px);
 }
 
 #addons {
